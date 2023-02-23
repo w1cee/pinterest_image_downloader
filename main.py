@@ -27,7 +27,7 @@ def finding_images():
     elif choise == '2':
         var = input('What kind of images do you need to download?: ')
         url = f"https://pinterest.com/search/pins/?q={var}"
-    print(f'✅ Images search started')
+    print('✅ Images search started')
     spinner = yaspin(text='Collecting urls')
     spinner.start()
     driver.get(url)
@@ -36,8 +36,6 @@ def finding_images():
         if link.get('href').startswith('/pin/'):
             pin_url = f"https://www.pinterest.com{link.get('href')}"
             pins_list.append(pin_url)
-        else:
-            pass
     spinner.ok("✅")
     print(f'✅ Total media found: {len(pins_list)}')
 
@@ -49,10 +47,8 @@ def download_images():
     except Exception:
         pass
     os.makedirs(os.path.dirname('images/'), exist_ok=True)  # creating images folder
-    counter = 0
     bar = ChargingBar('Downloading', max=len(pins_list))
-    for url in pins_list:
-        counter += 1
+    for counter, url in enumerate(pins_list, start=1):
         driver.get(url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         image = soup.find('img')
