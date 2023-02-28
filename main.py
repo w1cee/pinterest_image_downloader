@@ -27,7 +27,7 @@ def finding_images():
     elif choise == '2':
         var = input('What kind of images do you need to download?: ')
         url = f"https://pinterest.com/search/pins/?q={var}"
-    print(f'✅ Images search started')
+    print('✅ Images search started')
     spinner = yaspin(text='Collecting urls')
     spinner.start()
     driver.get(url)
